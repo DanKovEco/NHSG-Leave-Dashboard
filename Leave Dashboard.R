@@ -60,7 +60,6 @@ class(FullData$Job.Family)
 FullData['Job.Family'][FullData['Job.Family'] == "NURSING/MIDWIFERY"] <- "NURSING & MIDWIFERY"
 FullData['Job.Family'][FullData['Job.Family'] == "NURSING AND MIDWIFERY"] <- "NURSING & MIDWIFERY"
 
-#"Division", "Job.Family", "Headcount", "Total.WTE", "Total.Contracted.Hours", "Period.Total.Projected.Contracted.Hours", "Period", "Sick.Leave.Hours.Lost", "Sick.Leave.Hours.Lost.Percentage", "Coronavirus.Hours.Lost", "Coronavirus.Hours.Lost.Percentage", "Maternity.Leave.Hours.Lost", "Maternity.Hours.Lost.Percentage", "Other.Leave.Hours.Lost", "Other.Leave.Hours.Lost.Percentage", "Annual.Leave.Hours.Lost", "Annual.Leave.Hours.Lost.Percentage"
 
 
 ColNamesVector <- c("Division", 
@@ -246,7 +245,7 @@ AllLeaveChartGrampian <- ggplot(data = TDF, aes(x = Period, y = Percentage.Hours
 AllLeaveChartGrampian
 
 #print to file
-pdf("~/Grampian Percentage of Hours Lost.pdf")
+pdf("~/Grampian Percentage of Hours Lost.pdf", paper = "a4")
 print(SickLeaveChartGrampian)
 print(CovidLeaveChartGrampian)
 print(MaternityLeaveChartGrampian)
@@ -266,6 +265,8 @@ TDF$Percentage.AL.Used <- TDF$`sum(Total.Notional.Entitlement.Used)` / TDF$`sum(
 AnnLeaveUsedDivisionChart <- ggplot(data = TDF, aes(x = Division, y = Percentage.AL.Used)) +
   geom_bar(stat = "identity") +
   ylab("Percentage Leave Used") +
+  xlab("Division") +
+  ggtitle("Percentage of Annual Leave Entitlement by Division") +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   coord_flip()
 
@@ -296,6 +297,8 @@ TDF$Percentage.AL.Used <- TDF$`sum(Total.Notional.Entitlement.Used)` / TDF$`sum(
 AnnLeaveUsedJobFamilyChart <- ggplot(data = TDF, aes(x = Job.Family, y = Percentage.AL.Used)) +
   geom_bar(stat = "identity") +
   ylab("Percentage Leave Used") +
+  xlab("Job Family") +
+  ggtitle("Percentage of Annual Leave Entitlement by Job Family") +
   scale_y_continuous(labels = scales::percent, limits = c(0, 1)) +
   coord_flip()
 
